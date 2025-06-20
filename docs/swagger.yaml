@@ -1,0 +1,168 @@
+basePath: /api/v1
+definitions:
+  taskcontroller.CreateTaskRequest:
+    description: Request payload for creating a task.
+    properties:
+      name:
+        maxLength: 100
+        minLength: 1
+        type: string
+    required:
+    - name
+    type: object
+  taskcontroller.ErrorResponse:
+    description: Error response with error code and message.
+    properties:
+      error:
+        type: string
+      message:
+        type: string
+    type: object
+  taskcontroller.TaskListResponse:
+    description: List of tasks.
+    properties:
+      tasks:
+        items:
+          $ref: '#/definitions/taskcontroller.TaskResponse'
+        type: array
+    type: object
+  taskcontroller.TaskResponse:
+    description: Task information including status and processing time.
+    properties:
+      created_at:
+        type: string
+      id:
+        type: string
+      name:
+        type: string
+      processing_time:
+        type: integer
+      status:
+        $ref: '#/definitions/taskmodel.TaskStatus'
+    type: object
+  taskmodel.TaskStatus:
+    enum:
+    - DONE
+    - PROCESSING
+    - FAILED
+    type: string
+    x-enum-varnames:
+    - StatusDone
+    - StatusProcessing
+    - StatusFailed
+host: localhost:8080
+info:
+  contact: {}
+  description: API for task management
+  title: Workmate API
+  version: "1.0"
+paths:
+  /task/{id}:
+    delete:
+      consumes:
+      - application/json
+      description: Deletes a task by its ID
+      parameters:
+      - description: Task ID (UUID)
+        in: path
+        name: id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "204":
+          description: Task deleted
+        "400":
+          description: Invalid ID format
+          schema:
+            $ref: '#/definitions/taskcontroller.ErrorResponse'
+        "404":
+          description: Task not found
+          schema:
+            $ref: '#/definitions/taskcontroller.ErrorResponse'
+      summary: Delete a task
+      tags:
+      - tasks
+    get:
+      consumes:
+      - application/json
+      description: Returns information about a task by its ID
+      parameters:
+      - description: Task ID (UUID)
+        in: path
+        name: id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: Task found
+          schema:
+            $ref: '#/definitions/taskcontroller.TaskResponse'
+        "400":
+          description: Invalid ID format
+          schema:
+            $ref: '#/definitions/taskcontroller.ErrorResponse'
+        "404":
+          description: Task not found
+          schema:
+            $ref: '#/definitions/taskcontroller.ErrorResponse'
+      summary: Get task info
+      tags:
+      - tasks
+  /task/create:
+    post:
+      consumes:
+      - application/json
+      description: Creates a new task with the specified name
+      parameters:
+      - description: Task info
+        in: body
+        name: request
+        required: true
+        schema:
+          $ref: '#/definitions/taskcontroller.CreateTaskRequest'
+      produces:
+      - application/json
+      responses:
+        "202":
+          description: Task accepted for processing
+          headers:
+            Location:
+              description: Location of the created task
+              type: string
+          schema:
+            $ref: '#/definitions/taskcontroller.TaskResponse'
+        "400":
+          description: Invalid input
+          schema:
+            $ref: '#/definitions/taskcontroller.ErrorResponse'
+        "500":
+          description: Internal error
+          schema:
+            $ref: '#/definitions/taskcontroller.ErrorResponse'
+      summary: Create a new task
+      tags:
+      - tasks
+  /tasks:
+    get:
+      consumes:
+      - application/json
+      description: Returns a list of all tasks
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: List of tasks
+          schema:
+            $ref: '#/definitions/taskcontroller.TaskListResponse'
+        "500":
+          description: Internal error
+          schema:
+            $ref: '#/definitions/taskcontroller.ErrorResponse'
+      summary: List all tasks
+      tags:
+      - tasks
+swagger: "2.0"
