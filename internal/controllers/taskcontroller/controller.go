@@ -8,7 +8,7 @@ import (
 	"github.com/gin-gonic/gin"
 	"github.com/google/uuid"
 
-	"Workmate/internal/models/taskmodel"
+	"github.com/nzb3/workmate_test/internal/models/taskmodel"
 )
 
 type TaskService interface {
@@ -31,7 +31,7 @@ type TaskResponse struct {
 	Name           string               `json:"name"`
 	Status         taskmodel.TaskStatus `json:"status"`
 	CreatedAt      time.Time            `json:"created_at"`
-	ProcessingTime time.Duration        `json:"processing_time"swaggertype:"integer"`
+	ProcessingTime time.Duration        `json:"processing_time" swaggertype:"integer"`
 }
 
 // TaskListResponse represents a response with a list of tasks.

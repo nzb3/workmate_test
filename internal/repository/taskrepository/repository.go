@@ -7,7 +7,7 @@ import (
 
 	"github.com/google/uuid"
 
-	"Workmate/internal/models/taskmodel"
+	"github.com/nzb3/workmate_test/internal/models/taskmodel"
 )
 
 type InMemoryTaskRepository struct {

@@ -6,8 +6,8 @@
 package main
 
 import (
-	_ "Workmate/docs"
-	"Workmate/internal/app"
+	_ "github.com/nzb3/workmate_test/docs"
+	"github.com/nzb3/workmate_test/internal/app"
 )
 
 func main() {

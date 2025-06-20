@@ -16,8 +16,8 @@ import (
 	"github.com/stretchr/testify/require"
 	"github.com/stretchr/testify/suite"
 
-	"Workmate/internal/app"
-	"Workmate/internal/models/taskmodel"
+	"github.com/nzb3/workmate_test/internal/app"
+	"github.com/nzb3/workmate_test/internal/models/taskmodel"
 )
 
 type E2ETestSuite struct {

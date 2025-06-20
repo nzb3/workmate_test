@@ -9,10 +9,10 @@ import (
 	swaggerFiles "github.com/swaggo/files"
 	ginSwagger "github.com/swaggo/gin-swagger"
 
-	"Workmate/internal/controllers"
-	"Workmate/internal/controllers/taskcontroller"
-	"Workmate/internal/repository/taskrepository"
-	"Workmate/internal/service/taskservice"
+	"github.com/nzb3/workmate_test/internal/controllers"
+	"github.com/nzb3/workmate_test/internal/controllers/taskcontroller"
+	"github.com/nzb3/workmate_test/internal/repository/taskrepository"
+	"github.com/nzb3/workmate_test/internal/service/taskservice"
 )
 
 type DIContainer struct {

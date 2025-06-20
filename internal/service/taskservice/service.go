@@ -11,7 +11,7 @@ import (
 
 	"github.com/google/uuid"
 
-	"Workmate/internal/models/taskmodel"
+	"github.com/nzb3/workmate_test/internal/models/taskmodel"
 )
 
 const defaultTimeToProcessTask = 6 * time.Minute
